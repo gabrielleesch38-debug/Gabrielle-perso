@@ -41,6 +41,8 @@ export interface Destination {
   langueScore: Score5;
   /** Langue principale pratiquée au quotidien */
   langueCible: string;
+  /** 1 = culture assez proche de la France, 5 = dépaysement culturel fort */
+  decouverteCulturelle: Score5;
   confiance: NiveauConfiance;
   sourceNote: string;
 }
@@ -65,8 +67,9 @@ export type ProfilPrincipal =
   | "budget"
   | "vie_etudiante"
   | "voyage"
+  | "langue"
   | "carriere_internationale"
-  | "langue";
+  | "decouverte_culturelle";
 
 export interface UserProfile {
   destinationId: string;
@@ -140,6 +143,27 @@ export interface ExplicationResultat {
   pointsVigilance: string[];
 }
 
+export type NiveauScoreGlobal = "forte" | "moyenne" | "faible";
+
+export interface ComposantesScoreGlobal {
+  /** 40% — couverture des ressources déclarées sur le budget confort estimé */
+  budget: number;
+  /** 25% — dérivé de la difficulté à trouver un logement */
+  logement: number;
+  /** 20% — adéquation avec le profil principal choisi */
+  profil: number;
+  /** 15% — marge de sécurité financière au-delà de la simple couverture du budget */
+  margeSecurite: number;
+}
+
+export interface ScoreCompatibiliteGlobale {
+  /** 0-100 */
+  score: number;
+  niveau: NiveauScoreGlobal;
+  label: string;
+  composantes: ComposantesScoreGlobal;
+}
+
 export interface SimulationResult {
   destination: Destination;
   dureeMois: number;
@@ -151,18 +175,13 @@ export interface SimulationResult {
   fitProfil: ProfilFitResult;
   explication: ExplicationResultat;
   recommandations: RecommandationEconomie[];
+  scoreGlobal: ScoreCompatibiliteGlobale;
 }
-
-export type StatutCompatibilite =
-  | "confortable"
-  | "atteignable"
-  | "tendu"
-  | "insuffisant";
 
 export interface DestinationCompatibilite {
   destination: Destination;
-  statut: StatutCompatibilite;
   totalConfort: number;
   resteAChargeConfort: number;
   fitProfil: ProfilFitResult;
+  scoreGlobal: ScoreCompatibiliteGlobale;
 }

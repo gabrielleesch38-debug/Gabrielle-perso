@@ -8,6 +8,7 @@ import { formatDestinationLabel } from "@/lib/destinations";
 import { formatEuros, formatSigned } from "@/lib/format";
 import { BudgetTierCard } from "./BudgetTierCard";
 import { CompatibiliteList } from "./CompatibiliteList";
+import { ScoreGlobalCard } from "./ScoreGlobalCard";
 import { CompatibiliteBudgetaireBanner } from "./CompatibiliteBudgetaireBanner";
 import { RisquesCard } from "./RisquesCard";
 import { ProfilFitCard } from "./ProfilFitCard";
@@ -87,7 +88,11 @@ export function ResultatSimulation({ profil, onRecommencer }: ResultatSimulation
         </span>
       </div>
 
-      <p className="mb-8 text-sm text-slate-500">{confianceInfo.detail} {destination.sourceNote}</p>
+      <p className="mb-6 text-sm text-slate-500">{confianceInfo.detail} {destination.sourceNote}</p>
+
+      <div className="mb-10">
+        <ScoreGlobalCard scoreGlobal={simulation.scoreGlobal} />
+      </div>
 
       {/* 1. Combien cela va coûter */}
       <section className="mb-10">

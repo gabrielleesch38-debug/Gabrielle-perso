@@ -1,33 +1,17 @@
-import type { DestinationCompatibilite, StatutCompatibilite, VerdictProfil } from "@/lib/types";
+import type { DestinationCompatibilite, NiveauScoreGlobal, VerdictProfil } from "@/lib/types";
 import { formatDestinationLabel } from "@/lib/destinations";
 import { formatEuros, formatSigned } from "@/lib/format";
 
 const VERDICT_EMOJI: Record<VerdictProfil, string> = {
   tres_adapte: "✅",
-  adapte_reserves: "🟡",
+  adapte_reserves: "🟠",
   peu_adapte: "⚠️",
 };
 
-const STATUT_CONFIG: Record<
-  StatutCompatibilite,
-  { label: string; classes: string }
-> = {
-  confortable: {
-    label: "Confortable",
-    classes: "bg-emerald-100 text-emerald-700",
-  },
-  atteignable: {
-    label: "Atteignable",
-    classes: "bg-blue-100 text-blue-700",
-  },
-  tendu: {
-    label: "Tendu",
-    classes: "bg-amber-100 text-amber-700",
-  },
-  insuffisant: {
-    label: "Insuffisant",
-    classes: "bg-red-100 text-red-700",
-  },
+const NIVEAU_CONFIG: Record<NiveauScoreGlobal, { emoji: string; classes: string }> = {
+  forte: { emoji: "🟢", classes: "bg-emerald-100 text-emerald-700" },
+  moyenne: { emoji: "🟠", classes: "bg-amber-100 text-amber-700" },
+  faible: { emoji: "🔴", classes: "bg-red-100 text-red-700" },
 };
 
 interface CompatibiliteListProps {
@@ -42,12 +26,12 @@ export function CompatibiliteList({ items, destinationSelectionneeId }: Compatib
         <span>Destination</span>
         <span>Budget confort (séjour)</span>
         <span>Reste à charge</span>
-        <span>Statut</span>
+        <span>Compatibilité globale</span>
         <span>Profil</span>
       </div>
       <ul className="divide-y divide-slate-100">
         {items.map((item) => {
-          const config = STATUT_CONFIG[item.statut];
+          const config = NIVEAU_CONFIG[item.scoreGlobal.niveau];
           const isSelected = item.destination.id === destinationSelectionneeId;
           return (
             <li
@@ -77,7 +61,7 @@ export function CompatibiliteList({ items, destinationSelectionneeId }: Compatib
               <span
                 className={`w-fit rounded-full px-2 py-0.5 text-xs font-medium sm:justify-self-end ${config.classes}`}
               >
-                {config.label}
+                {config.emoji} {item.scoreGlobal.score}/100
               </span>
               <span
                 className="w-fit text-base sm:justify-self-end"

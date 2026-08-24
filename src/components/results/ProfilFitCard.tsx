@@ -4,7 +4,7 @@ import { StarRating } from "@/components/ui/StarRating";
 
 const VERDICT_EMOJI: Record<ProfilFitResult["verdict"], string> = {
   tres_adapte: "✅",
-  adapte_reserves: "🟡",
+  adapte_reserves: "🟠",
   peu_adapte: "⚠️",
 };
 

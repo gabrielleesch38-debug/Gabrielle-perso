@@ -1,19 +1,21 @@
 import type {
   BudgetTierResult,
   CompatibiliteBudgetaire,
+  ComposantesScoreGlobal,
   CostRange,
   Destination,
   DestinationCompatibilite,
   ExplicationResultat,
   FrequenceVoyage,
   LogementType,
+  NiveauScoreGlobal,
   NomTier,
   ProfilFitResult,
   ProfilPrincipal,
   RecommandationEconomie,
   Score5,
+  ScoreCompatibiliteGlobale,
   SimulationResult,
-  StatutCompatibilite,
   UserProfile,
   VerdictProfil,
   VieSociale,
@@ -209,6 +211,7 @@ export function simuler(destination: Destination, profil: UserProfile): Simulati
 
   const compatibiliteBudgetaire = calculerCompatibiliteBudgetaire(tiers.confort, ressourcesTotales);
   const fitProfil = scoreProfil(destination, profil.profilPrincipal);
+  const scoreGlobal = calculerScoreGlobal(destination, compatibiliteBudgetaire, fitProfil);
 
   return {
     destination,
@@ -221,7 +224,61 @@ export function simuler(destination: Destination, profil: UserProfile): Simulati
     fitProfil,
     explication: expliquerResultat(destination, compatibiliteBudgetaire, fitProfil),
     recommandations: genererRecommandations(destination, profil, tiers),
+    scoreGlobal,
   };
+}
+
+/**
+ * Score de compatibilité globale sur 100, pondéré :
+ * 40% compatibilité budgétaire (couverture des ressources sur le budget confort)
+ * 25% difficulté logement (inversée : plus c'est difficile, plus le score baisse)
+ * 20% adéquation avec le profil principal choisi
+ * 15% marge de sécurité financière (au-delà de la simple couverture)
+ */
+export function calculerScoreGlobal(
+  destination: Destination,
+  compatibiliteBudgetaire: CompatibiliteBudgetaire,
+  fitProfil: ProfilFitResult,
+): ScoreCompatibiliteGlobale {
+  const clamp = (v: number) => Math.min(100, Math.max(0, v));
+
+  // Couverture : ressources / budget confort, plafonnée à 100 dès que le budget est couvert.
+  const budgetScore = clamp(100 + compatibiliteBudgetaire.margePct);
+  // Difficulté logement 1 (très facile) → 100, 5 (très difficile) → 0.
+  const logementScore = clamp(((5 - destination.difficulteLogement) / 4) * 100);
+  // Adéquation profil 1 → 0, 5 → 100.
+  const profilScore = clamp(((fitProfil.score - 1) / 4) * 100);
+  // Marge de sécurité : 0% de marge → 50, +20% ou plus → 100, -20% ou moins → 0.
+  const margeSecuriteScore = clamp(50 + compatibiliteBudgetaire.margePct * 2.5);
+
+  const composantes: ComposantesScoreGlobal = {
+    budget: Math.round(budgetScore),
+    logement: Math.round(logementScore),
+    profil: Math.round(profilScore),
+    margeSecurite: Math.round(margeSecuriteScore),
+  };
+
+  const score = Math.round(
+    composantes.budget * 0.4 +
+      composantes.logement * 0.25 +
+      composantes.profil * 0.2 +
+      composantes.margeSecurite * 0.15,
+  );
+
+  let niveau: NiveauScoreGlobal;
+  let label: string;
+  if (score >= 75) {
+    niveau = "forte";
+    label = "Très bonne compatibilité";
+  } else if (score >= 50) {
+    niveau = "moyenne";
+    label = "Compatible avec vigilance";
+  } else {
+    niveau = "faible";
+    label = "Compatibilité faible";
+  }
+
+  return { score, niveau, label, composantes };
 }
 
 /**
@@ -271,8 +328,9 @@ export const PROFIL_AXE: Record<
   budget: { label: "Budget serré", getter: (d) => (6 - d.niveauCoutGlobal) as Score5 },
   vie_etudiante: { label: "Vie étudiante", getter: (d) => d.vieEtudiante },
   voyage: { label: "Voyage", getter: (d) => d.voyageFacilite },
-  carriere_internationale: { label: "Carrière internationale", getter: (d) => d.carriereInternationale },
   langue: { label: "Progression linguistique", getter: (d) => d.langueScore },
+  carriere_internationale: { label: "Carrière internationale", getter: (d) => d.carriereInternationale },
+  decouverte_culturelle: { label: "Découverte culturelle", getter: (d) => d.decouverteCulturelle },
 };
 
 const VERDICT_LABEL: Record<ProfilPrincipal, Record<VerdictProfil, string>> = {
@@ -301,6 +359,11 @@ const VERDICT_LABEL: Record<ProfilPrincipal, Record<VerdictProfil, string>> = {
     adapte_reserves: "Immersion linguistique partielle",
     peu_adapte: "Peu d'immersion linguistique réelle",
   },
+  decouverte_culturelle: {
+    tres_adapte: "Dépaysement culturel fort",
+    adapte_reserves: "Dépaysement modéré",
+    peu_adapte: "Culture assez proche de la France",
+  },
 };
 
 function verdictDepuisScore(score: Score5): VerdictProfil {
@@ -320,6 +383,7 @@ export function scoreProfil(destination: Destination, profil: ProfilPrincipal): 
     voyage: `Facilité à voyager depuis cette destination notée ${destination.voyageFacilite}/5, coût moyen d'un voyage type : ${destination.voyages}€.`,
     carriere_internationale: `Valeur perçue pour un CV international notée ${destination.carriereInternationale}/5.`,
     langue: `Immersion linguistique (${destination.langueCible}) notée ${destination.langueScore}/5.`,
+    decouverte_culturelle: `Dépaysement culturel noté ${destination.decouverteCulturelle}/5.`,
   };
 
   return {
@@ -489,8 +553,6 @@ function genererRecommandations(
   return recommandations.slice(0, 5);
 }
 
-const SEUIL_TENDU = 0; // reste à charge du budget minimal
-
 export function evaluerCompatibilite(
   destinations: Destination[],
   profil: UserProfile,
@@ -501,27 +563,16 @@ export function evaluerCompatibilite(
     .map((destination) => {
       const tiers = calculerBudgets(destination, profil);
       const resteAChargeConfort = arrondi(tiers.confort.total - ressourcesTotales);
-      const resteAChargeMinimal = tiers.minimal.total - ressourcesTotales;
-      const resteAChargeExperience = tiers.experience.total - ressourcesTotales;
-
-      let statut: StatutCompatibilite;
-      if (resteAChargeExperience <= 0) {
-        statut = "confortable";
-      } else if (resteAChargeConfort <= 0) {
-        statut = "atteignable";
-      } else if (resteAChargeMinimal <= SEUIL_TENDU) {
-        statut = "tendu";
-      } else {
-        statut = "insuffisant";
-      }
+      const compatibiliteBudgetaire = calculerCompatibiliteBudgetaire(tiers.confort, ressourcesTotales);
+      const fitProfil = scoreProfil(destination, profil.profilPrincipal);
 
       return {
         destination,
-        statut,
         totalConfort: arrondi(tiers.confort.total),
         resteAChargeConfort,
-        fitProfil: scoreProfil(destination, profil.profilPrincipal),
+        fitProfil,
+        scoreGlobal: calculerScoreGlobal(destination, compatibiliteBudgetaire, fitProfil),
       };
     })
-    .sort((a, b) => a.resteAChargeConfort - b.resteAChargeConfort);
+    .sort((a, b) => b.scoreGlobal.score - a.scoreGlobal.score || a.resteAChargeConfort - b.resteAChargeConfort);
 }

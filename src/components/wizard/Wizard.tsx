@@ -48,8 +48,9 @@ const PROFIL_DESCRIPTIONS: Record<ProfilPrincipal, string> = {
   budget: "Minimiser la dépense passe avant tout le reste.",
   vie_etudiante: "Sorties, associations, rencontres : l'ambiance sur place compte le plus.",
   voyage: "Profiter de la destination pour explorer le pays et la région.",
-  carriere_internationale: "Construire un CV et un réseau à dimension internationale.",
   langue: "Progresser au maximum dans la langue du pays.",
+  carriere_internationale: "Construire un CV et un réseau à dimension internationale.",
+  decouverte_culturelle: "Vivre une culture vraiment différente de la tienne, dépaysement total.",
 };
 
 export function Wizard() {

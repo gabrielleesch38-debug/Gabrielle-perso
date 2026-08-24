@@ -10,7 +10,7 @@ const CONFIG: Record<
     classes: "border-emerald-300 bg-emerald-50 text-emerald-900",
   },
   moyenne: {
-    emoji: "🟡",
+    emoji: "🟠",
     titre: "Compatibilité moyenne",
     classes: "border-amber-300 bg-amber-50 text-amber-900",
   },

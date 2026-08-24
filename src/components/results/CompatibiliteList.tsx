@@ -1,6 +1,12 @@
-import type { DestinationCompatibilite, StatutCompatibilite } from "@/lib/types";
+import type { DestinationCompatibilite, StatutCompatibilite, VerdictProfil } from "@/lib/types";
 import { formatDestinationLabel } from "@/lib/destinations";
 import { formatEuros, formatSigned } from "@/lib/format";
+
+const VERDICT_EMOJI: Record<VerdictProfil, string> = {
+  tres_adapte: "✅",
+  adapte_reserves: "🟡",
+  peu_adapte: "⚠️",
+};
 
 const STATUT_CONFIG: Record<
   StatutCompatibilite,
@@ -32,11 +38,12 @@ interface CompatibiliteListProps {
 export function CompatibiliteList({ items, destinationSelectionneeId }: CompatibiliteListProps) {
   return (
     <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
-      <div className="hidden grid-cols-[1fr_auto_auto_auto] gap-3 border-b border-slate-200 bg-slate-50 px-4 py-2 text-xs font-medium uppercase tracking-wide text-slate-500 sm:grid">
+      <div className="hidden grid-cols-[1fr_auto_auto_auto_auto] gap-3 border-b border-slate-200 bg-slate-50 px-4 py-2 text-xs font-medium uppercase tracking-wide text-slate-500 sm:grid">
         <span>Destination</span>
         <span>Budget confort (séjour)</span>
         <span>Reste à charge</span>
         <span>Statut</span>
+        <span>Profil</span>
       </div>
       <ul className="divide-y divide-slate-100">
         {items.map((item) => {
@@ -45,7 +52,7 @@ export function CompatibiliteList({ items, destinationSelectionneeId }: Compatib
           return (
             <li
               key={item.destination.id}
-              className={`grid grid-cols-1 gap-1 px-4 py-3 sm:grid-cols-[1fr_auto_auto_auto] sm:items-center sm:gap-3 ${
+              className={`grid grid-cols-1 gap-1 px-4 py-3 sm:grid-cols-[1fr_auto_auto_auto_auto] sm:items-center sm:gap-3 ${
                 isSelected ? "bg-blue-50/60" : ""
               }`}
             >
@@ -71,6 +78,12 @@ export function CompatibiliteList({ items, destinationSelectionneeId }: Compatib
                 className={`w-fit rounded-full px-2 py-0.5 text-xs font-medium sm:justify-self-end ${config.classes}`}
               >
                 {config.label}
+              </span>
+              <span
+                className="w-fit text-base sm:justify-self-end"
+                title={item.fitProfil.label}
+              >
+                {VERDICT_EMOJI[item.fitProfil.verdict]}
               </span>
             </li>
           );

@@ -6,6 +6,9 @@ export interface CostRange {
   eleve: number;
 }
 
+/** Score 1-5 : 1 = très faible sur cet axe, 5 = très fort. */
+export type Score5 = 1 | 2 | 3 | 4 | 5;
+
 export interface Destination {
   id: string;
   pays: string;
@@ -25,9 +28,19 @@ export interface Destination {
   /** €, coût moyen d'un voyage type (week-end), combiné à la fréquence déclarée par l'utilisateur */
   voyages: number;
   /** 1 = très facile, 5 = très difficile */
-  difficulteLogement: 1 | 2 | 3 | 4 | 5;
+  difficulteLogement: Score5;
   /** 1 = très bas, 5 = très élevé */
-  niveauCoutGlobal: 1 | 2 | 3 | 4 | 5;
+  niveauCoutGlobal: Score5;
+  /** 1 = vie étudiante peu documentée/discrète, 5 = très animée */
+  vieEtudiante: Score5;
+  /** 1 = mal positionné pour voyager depuis cette destination, 5 = très bien positionné */
+  voyageFacilite: Score5;
+  /** 1 = faible valeur perçue pour un CV international, 5 = forte */
+  carriereInternationale: Score5;
+  /** 1 = quasi aucune immersion linguistique réelle, 5 = immersion forte */
+  langueScore: Score5;
+  /** Langue principale pratiquée au quotidien */
+  langueCible: string;
   confiance: NiveauConfiance;
   sourceNote: string;
 }
@@ -48,8 +61,16 @@ export type VieSociale = "faible" | "moyenne" | "elevee";
 
 export type TypeBourse = "erasmus" | "region" | "crous" | "autres";
 
+export type ProfilPrincipal =
+  | "budget"
+  | "vie_etudiante"
+  | "voyage"
+  | "carriere_internationale"
+  | "langue";
+
 export interface UserProfile {
   destinationId: string;
+  profilPrincipal: ProfilPrincipal;
   dureeMois: number;
   logementType: LogementType;
   frequenceVoyage: FrequenceVoyage;
@@ -90,6 +111,35 @@ export interface BudgetTierResult {
   total: number;
 }
 
+export type NiveauCompatibiliteBudgetaire = "forte" | "moyenne" | "faible";
+
+export interface CompatibiliteBudgetaire {
+  niveau: NiveauCompatibiliteBudgetaire;
+  /** marge (positive) ou déficit (négatif) en % du budget confort du séjour */
+  margePct: number;
+  message: string;
+}
+
+export type VerdictProfil = "tres_adapte" | "adapte_reserves" | "peu_adapte";
+
+export interface ProfilFitResult {
+  profil: ProfilPrincipal;
+  score: Score5;
+  verdict: VerdictProfil;
+  label: string;
+  explication: string;
+}
+
+export interface RecommandationEconomie {
+  texte: string;
+  economiePotentielle?: number;
+}
+
+export interface ExplicationResultat {
+  pointsForts: string[];
+  pointsVigilance: string[];
+}
+
 export interface SimulationResult {
   destination: Destination;
   dureeMois: number;
@@ -97,6 +147,10 @@ export interface SimulationResult {
   ressourcesTotales: number;
   resteACharge: Record<NomTier, number>;
   alertesDepensesSousEstimees: string[];
+  compatibiliteBudgetaire: CompatibiliteBudgetaire;
+  fitProfil: ProfilFitResult;
+  explication: ExplicationResultat;
+  recommandations: RecommandationEconomie[];
 }
 
 export type StatutCompatibilite =
@@ -110,4 +164,5 @@ export interface DestinationCompatibilite {
   statut: StatutCompatibilite;
   totalConfort: number;
   resteAChargeConfort: number;
+  fitProfil: ProfilFitResult;
 }

@@ -13,6 +13,11 @@
     "voyages": 40,
     "difficulteLogement": 2,
     "niveauCoutGlobal": 1,
+    "vieEtudiante": 4,
+    "voyageFacilite": 5,
+    "carriereInternationale": 2,
+    "langueScore": 5,
+    "langueCible": "Espagnol",
     "confiance": "observe",
     "sourceNote": "Basé sur 2 rapports de fin de mobilité UPSA (2025). Logement en Airbnb/colocation, pas de caution habituelle. Coût de la vie explicitement décrit comme très bas par les deux étudiantes, forte volatilité du taux de change signalée (à surveiller)."
   },
@@ -30,6 +35,11 @@
     "voyages": 50,
     "difficulteLogement": 3,
     "niveauCoutGlobal": 3,
+    "vieEtudiante": 4,
+    "voyageFacilite": 5,
+    "carriereInternationale": 5,
+    "langueScore": 1,
+    "langueCible": "Français (peu d'immersion pour un francophone)",
     "confiance": "observe",
     "sourceNote": "Basé sur 1 rapport IHECS (2025). Installation élevée car caution réelle observée = 2 mois de loyer + 150€ de frais de séjour (court séjour < 6 mois). Transport très bas grâce à l'abonnement étudiant STIB à 18€/an. Téléphone quasi nul car forfait français utilisable sans surcoût en UE."
   },
@@ -47,6 +57,11 @@
     "voyages": 60,
     "difficulteLogement": 5,
     "niveauCoutGlobal": 4,
+    "vieEtudiante": 5,
+    "voyageFacilite": 4,
+    "carriereInternationale": 5,
+    "langueScore": 4,
+    "langueCible": "Allemand",
     "confiance": "observe",
     "sourceNote": "Basé sur 3 rapports FU Berlin (2023). Logement décrit comme 'la partie la plus difficile' dans 2 rapports sur 3 : marché très tendu, anticiper 3 mois minimum. Transport gratuit inclus dans la contribution semestrielle. Installation élevée : contribution semestrielle (~190-265€) + caution logement + frais d'agence pouvant atteindre 400€."
   },
@@ -64,6 +79,11 @@
     "voyages": 45,
     "difficulteLogement": 3,
     "niveauCoutGlobal": 2,
+    "vieEtudiante": 3,
+    "voyageFacilite": 5,
+    "carriereInternationale": 2,
+    "langueScore": 5,
+    "langueCible": "Allemand",
     "confiance": "observe",
     "sourceNote": "Basé sur 1 rapport Jena (2024). Logement en résidence universitaire (places limitées, candidater dès septembre). Carte Thoska = transport gratuit dans toute la Thuringe. Installation inclut la contribution semestrielle (~266€) et l'achat d'un routeur (les résidences n'ont pas d'internet inclus)."
   },
@@ -81,6 +101,11 @@
     "voyages": 50,
     "difficulteLogement": 2,
     "niveauCoutGlobal": 3,
+    "vieEtudiante": 4,
+    "voyageFacilite": 5,
+    "carriereInternationale": 3,
+    "langueScore": 4,
+    "langueCible": "Allemand",
     "confiance": "observe",
     "sourceNote": "Basé sur 1 rapport Regensburg (2024). Logement géré directement par l'université (plus simple que le marché privé). Le cours de langue intensif optionnel avant la rentrée (~350€) n'est pas inclus dans l'installation : il est décrit comme très utile socialement par cette étudiante, mais un autre témoignage berlinois le juge dispensable — à évaluer selon le profil."
   },
@@ -98,6 +123,11 @@
     "voyages": 80,
     "difficulteLogement": 3,
     "niveauCoutGlobal": 3,
+    "vieEtudiante": 4,
+    "voyageFacilite": 3,
+    "carriereInternationale": 4,
+    "langueScore": 3,
+    "langueCible": "Anglais (environnement bilingue)",
     "confiance": "observe",
     "sourceNote": "Basé sur 2 rapports UQAM (2025), montants convertis CAD→EUR (taux indicatif, à ajuster selon le change réel). Installation = budget vêtements grand froid (bottes, doudoune) explicitement cité comme indispensable et parfois sous-estimé par les 2 étudiantes. Point de vigilance récurrent : bien vérifier la distance logement-métro avant de signer, le froid (-20/-30°C) rend les trajets à pied pénibles."
   },
@@ -115,8 +145,13 @@
     "voyages": 100,
     "difficulteLogement": 2,
     "niveauCoutGlobal": 2,
+    "vieEtudiante": 4,
+    "voyageFacilite": 4,
+    "carriereInternationale": 3,
+    "langueScore": 3,
+    "langueCible": "Portugais",
     "confiance": "partiel",
-    "sourceNote": "Logement moyen (400-500€) et coût global de séjour observé (4500-7300€, période de référence ~5 mois) confirmés par des retours étudiants. Les autres postes (alimentation, transport, téléphone, installation, voyages) sont estimés à partir de ces deux points d'ancrage et du coût de la vie général à Porto."
+    "sourceNote": "Logement moyen (400-500€) et coût global de séjour observé (4500-7300€, période de référence ~5 mois) confirmés par des retours étudiants. Les autres postes (alimentation, transport, téléphone, installation, voyages) sont estimés à partir de ces deux points d'ancrage et du coût de la vie général à Porto. Vie étudiante et carrière internationale estimées par réputation générale de la ville (forte destination Erasmus), non confirmées par le corpus."
   },
   {
     "id": "pt-braga",
@@ -132,8 +167,13 @@
     "voyages": 70,
     "difficulteLogement": 2,
     "niveauCoutGlobal": 2,
+    "vieEtudiante": 3,
+    "voyageFacilite": 3,
+    "carriereInternationale": 2,
+    "langueScore": 3,
+    "langueCible": "Portugais",
     "confiance": "partiel",
-    "sourceNote": "Logement moyen (400€) et coût global de séjour observé (5600-6500€, période de référence ~5 mois) confirmés par des retours étudiants. Fourchette de coût global plus resserrée que Porto, ce qui suggère un profil de dépenses voyages/loisirs plus modéré. Les autres postes sont estimés."
+    "sourceNote": "Logement moyen (400€) et coût global de séjour observé (5600-6500€, période de référence ~5 mois) confirmés par des retours étudiants. Fourchette de coût global plus resserrée que Porto, ce qui suggère un profil de dépenses voyages/loisirs plus modéré. Les autres postes, dont vie étudiante et carrière internationale, sont estimés (ville plus petite et plus calme que Porto)."
   },
   {
     "id": "uk-nottingham",
@@ -149,8 +189,13 @@
     "voyages": 150,
     "difficulteLogement": 4,
     "niveauCoutGlobal": 4,
+    "vieEtudiante": 4,
+    "voyageFacilite": 2,
+    "carriereInternationale": 4,
+    "langueScore": 4,
+    "langueCible": "Anglais",
     "confiance": "partiel",
-    "sourceNote": "Logement (570-900€) et coût global de séjour observé (6000-9000€, période de référence ~5 mois) confirmés par des retours étudiants. Les autres postes sont estimés à partir du coût de la vie britannique."
+    "sourceNote": "Logement (570-900€) et coût global de séjour observé (6000-9000€, période de référence ~5 mois) confirmés par des retours étudiants. Voyage moins facile qu'en zone Schengen (hors UE depuis le Brexit, coûts et démarches supplémentaires). Les autres postes sont estimés à partir du coût de la vie britannique."
   },
   {
     "id": "uk-leeds",
@@ -166,6 +211,11 @@
     "voyages": 150,
     "difficulteLogement": 4,
     "niveauCoutGlobal": 4,
+    "vieEtudiante": 4,
+    "voyageFacilite": 2,
+    "carriereInternationale": 4,
+    "langueScore": 4,
+    "langueCible": "Anglais",
     "confiance": "partiel",
     "sourceNote": "Un seul point de donnée disponible : loyer observé jusqu'à 1500€/mois (segment haut de marché). Les valeurs min/moyen ainsi que les autres postes sont estimés par analogie avec le reste du marché britannique — à fiabiliser avec davantage de retours."
   },
@@ -183,8 +233,13 @@
     "voyages": 120,
     "difficulteLogement": 5,
     "niveauCoutGlobal": 4,
+    "vieEtudiante": 3,
+    "voyageFacilite": 2,
+    "carriereInternationale": 3,
+    "langueScore": 4,
+    "langueCible": "Anglais",
     "confiance": "estime",
-    "sourceNote": "Retours disponibles uniquement qualitatifs : logement décrit comme 'difficile' et coût global comme 'élevé', sans montants précis. Tous les chiffres sont estimés par analogie avec des villes universitaires britanniques comparables — à fiabiliser en priorité."
+    "sourceNote": "Retours disponibles uniquement qualitatifs : logement décrit comme 'difficile' et coût global comme 'élevé', sans montants précis. Tous les chiffres sont estimés par analogie avec des villes universitaires britanniques comparables — à fiabiliser en priorité. Ville universitaire plus petite, orientée sport, vie étudiante estimée plus calme qu'à Nottingham/Leeds."
   },
   {
     "id": "nl-eindhoven",
@@ -200,8 +255,13 @@
     "voyages": 130,
     "difficulteLogement": 4,
     "niveauCoutGlobal": 3,
+    "vieEtudiante": 3,
+    "voyageFacilite": 5,
+    "carriereInternationale": 4,
+    "langueScore": 2,
+    "langueCible": "Néerlandais (cours souvent en anglais)",
     "confiance": "partiel",
-    "sourceNote": "Logement (540-775€) confirmé par des retours étudiants. Les autres postes sont estimés à partir du coût de la vie néerlandais. Marché du logement étudiant néerlandais connu pour être très tendu (à anticiper largement en amont)."
+    "sourceNote": "Logement (540-775€) confirmé par des retours étudiants. Les autres postes sont estimés à partir du coût de la vie néerlandais. Marché du logement étudiant néerlandais connu pour être très tendu (à anticiper largement en amont). Forte valeur carrière (pôle tech/ingénierie : Philips, ASML), mais immersion linguistique faible car cours très majoritairement en anglais."
   },
   {
     "id": "nl-la-haye",
@@ -217,8 +277,13 @@
     "voyages": 130,
     "difficulteLogement": 4,
     "niveauCoutGlobal": 4,
+    "vieEtudiante": 3,
+    "voyageFacilite": 5,
+    "carriereInternationale": 5,
+    "langueScore": 2,
+    "langueCible": "Néerlandais (cours souvent en anglais)",
     "confiance": "partiel",
-    "sourceNote": "Logement (jusqu'à 1000€) confirmé par des retours étudiants (valeur haute). Les autres postes sont estimés par analogie avec Eindhoven et le coût de la vie néerlandais, La Haye étant une ville plus chère en moyenne."
+    "sourceNote": "Logement (jusqu'à 1000€) confirmé par des retours étudiants (valeur haute). Les autres postes sont estimés par analogie avec Eindhoven et le coût de la vie néerlandais, La Haye étant une ville plus chère en moyenne. Forte valeur carrière internationale (siège de nombreuses institutions internationales : CIJ, CPI)."
   },
   {
     "id": "mx-guadalajara",
@@ -234,6 +299,11 @@
     "voyages": 180,
     "difficulteLogement": 2,
     "niveauCoutGlobal": 2,
+    "vieEtudiante": 4,
+    "voyageFacilite": 5,
+    "carriereInternationale": 3,
+    "langueScore": 5,
+    "langueCible": "Espagnol",
     "confiance": "partiel",
     "sourceNote": "Coût de la vie faible et budget total de séjour observé (4500-8000€, période de référence ~5 mois) confirmés par des retours étudiants, avec une forte influence du poste voyages explicitement signalée — d'où un poste voyages fixé plus haut que la moyenne du jeu de données. Les postes détaillés (logement, alimentation, transport) sont estimés."
   },
@@ -251,6 +321,11 @@
     "voyages": 150,
     "difficulteLogement": 2,
     "niveauCoutGlobal": 1,
+    "vieEtudiante": 3,
+    "voyageFacilite": 5,
+    "carriereInternationale": 2,
+    "langueScore": 5,
+    "langueCible": "Espagnol",
     "confiance": "partiel",
     "sourceNote": "Logement (210€/mois) confirmé par un retour étudiant, coût de la vie explicitement décrit comme faible. Les autres postes sont estimés par analogie avec le profil bolivien du corpus (Amérique du Sud, coût de la vie bas, poste voyages fréquemment important)."
   },
@@ -268,8 +343,13 @@
     "voyages": 130,
     "difficulteLogement": 3,
     "niveauCoutGlobal": 3,
+    "vieEtudiante": 4,
+    "voyageFacilite": 5,
+    "carriereInternationale": 3,
+    "langueScore": 4,
+    "langueCible": "Italien",
     "confiance": "estime",
-    "sourceNote": "Aucune ville précise dans les retours disponibles, seulement une caractérisation qualitative : pays 'globalement modéré' avec une 'forte composante voyages'. Tous les chiffres sont des estimations nationales moyennes — le coût réel varie fortement d'une ville à l'autre (ex : Milan très supérieur à cette moyenne). À affiner par ville dès que possible."
+    "sourceNote": "Aucune ville précise dans les retours disponibles, seulement une caractérisation qualitative : pays 'globalement modéré' avec une 'forte composante voyages'. Tous les chiffres sont des estimations nationales moyennes — le coût réel varie fortement d'une ville à l'autre (ex : Milan très supérieur à cette moyenne). Carrière internationale très dépendante de la ville (Milan élevé, ailleurs plus modéré) : valeur moyenne retenue faute de ville précisée. À affiner par ville dès que possible."
   },
   {
     "id": "es-generique",
@@ -285,6 +365,11 @@
     "voyages": 110,
     "difficulteLogement": 3,
     "niveauCoutGlobal": 3,
+    "vieEtudiante": 4,
+    "voyageFacilite": 4,
+    "carriereInternationale": 3,
+    "langueScore": 4,
+    "langueCible": "Espagnol",
     "confiance": "estime",
     "sourceNote": "Aucune ville précise dans les retours disponibles, uniquement la mention explicite d'un logement 'variable selon les villes'. La fourchette logement est donc volontairement large pour refléter cette hétérogénéité. Tous les autres chiffres sont des estimations nationales moyennes — à affiner par ville."
   },
@@ -299,11 +384,16 @@
     "transport": { "min": 40, "moyen": 60, "eleve": 80 },
     "telephone": 18,
     "installation": 380,
-    "niveauCoutGlobal": 5,
     "voyages": 100,
     "difficulteLogement": 5,
+    "niveauCoutGlobal": 5,
+    "vieEtudiante": 4,
+    "voyageFacilite": 2,
+    "carriereInternationale": 4,
+    "langueScore": 4,
+    "langueCible": "Anglais",
     "confiance": "estime",
-    "sourceNote": "Aucune ville précise ni montant chiffré dans les retours disponibles, uniquement une caractérisation qualitative forte : logement 'très difficile' et coût global 'élevé'. Tous les chiffres sont des estimations construites pour refléter ce signal qualitatif fort (logement et coût global au niveau maximal de sévérité) — à vérifier avec des témoignages chiffrés dès que possible."
+    "sourceNote": "Aucune ville précise ni montant chiffré dans les retours disponibles, uniquement une caractérisation qualitative forte : logement 'très difficile' et coût global 'élevé'. Tous les chiffres sont des estimations construites pour refléter ce signal qualitatif fort (logement et coût global au niveau maximal de sévérité) — à vérifier avec des témoignages chiffrés dès que possible. Forte valeur carrière (nombreux sièges européens d'entreprises tech américaines à Dublin)."
   },
   {
     "id": "fi-generique",
@@ -319,8 +409,13 @@
     "voyages": 110,
     "difficulteLogement": 3,
     "niveauCoutGlobal": 4,
+    "vieEtudiante": 3,
+    "voyageFacilite": 2,
+    "carriereInternationale": 4,
+    "langueScore": 2,
+    "langueCible": "Finnois (vie quotidienne souvent en anglais)",
     "confiance": "estime",
-    "sourceNote": "Aucune ville précise ni montant chiffré dans les retours disponibles, uniquement une caractérisation qualitative : coût 'modéré à élevé' avec un 'impact climat important'. Le poste installation a été majoré pour intégrer un budget équipement grand froid (vêtements techniques), par analogie avec le retour d'expérience canadien du corpus sur ce même type de climat. À vérifier avec des témoignages chiffrés dès que possible."
+    "sourceNote": "Aucune ville précise ni montant chiffré dans les retours disponibles, uniquement une caractérisation qualitative : coût 'modéré à élevé' avec un 'impact climat important'. Le poste installation a été majoré pour intégrer un budget équipement grand froid (vêtements techniques), par analogie avec le retour d'expérience canadien du corpus sur ce même type de climat. Géographiquement excentrée, moins pratique pour les voyages fréquents en Europe. À vérifier avec des témoignages chiffrés dès que possible."
   },
   {
     "id": "us-generique",
@@ -336,7 +431,12 @@
     "voyages": 150,
     "difficulteLogement": 3,
     "niveauCoutGlobal": 5,
+    "vieEtudiante": 5,
+    "voyageFacilite": 2,
+    "carriereInternationale": 5,
+    "langueScore": 4,
+    "langueCible": "Anglais",
     "confiance": "estime",
-    "sourceNote": "Aucune ville précise ni montant chiffré dans les retours disponibles, uniquement une caractérisation qualitative forte : 'budget élevé', 'visa important', 'vie de campus forte'. Le poste installation intègre une estimation des frais de visa étudiant (type F-1/SEVIS), souvent sous-estimés. Le logement en résidence universitaire (vie de campus) limite en général la difficulté de recherche malgré un coût élevé. À vérifier avec des témoignages chiffrés dès que possible."
+    "sourceNote": "Aucune ville précise ni montant chiffré dans les retours disponibles, uniquement une caractérisation qualitative forte : 'budget élevé', 'visa important', 'vie de campus forte'. Le poste installation intègre une estimation des frais de visa étudiant (type F-1/SEVIS), souvent sous-estimés. Le logement en résidence universitaire (vie de campus) limite en général la difficulté de recherche malgré un coût élevé. Voyages internationaux coûteux depuis les États-Unis (distances), à nuancer selon la région visitée. À vérifier avec des témoignages chiffrés dès que possible."
   }
 ]

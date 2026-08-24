@@ -4,6 +4,7 @@ import { useState } from "react";
 import type {
   FrequenceVoyage,
   LogementType,
+  ProfilPrincipal,
   TypeBourse,
   UserProfile,
   VieSociale,
@@ -13,6 +14,7 @@ import {
   LABEL_FREQUENCE_VOYAGE,
   LABEL_LOGEMENT,
   LABEL_VIE_SOCIALE,
+  PROFIL_AXE,
 } from "@/lib/budget";
 import { DestinationPicker } from "./DestinationPicker";
 import { StepShell } from "./StepShell";
@@ -22,6 +24,7 @@ import { ResultatSimulation } from "@/components/results/ResultatSimulation";
 
 const DEFAULT_PROFIL: UserProfile = {
   destinationId: "",
+  profilPrincipal: "budget",
   dureeMois: 5,
   logementType: "colocation",
   frequenceVoyage: "1x_mois",
@@ -32,7 +35,7 @@ const DEFAULT_PROFIL: UserProfile = {
   epargnePersonnelle: 0,
 };
 
-const TOTAL_STEPS = 8;
+const TOTAL_STEPS = 9;
 
 const BOURSE_OPTIONS: { value: TypeBourse; label: string }[] = [
   { value: "erasmus", label: "Erasmus+" },
@@ -40,6 +43,14 @@ const BOURSE_OPTIONS: { value: TypeBourse; label: string }[] = [
   { value: "crous", label: "Bourse CROUS" },
   { value: "autres", label: "Autre bourse" },
 ];
+
+const PROFIL_DESCRIPTIONS: Record<ProfilPrincipal, string> = {
+  budget: "Minimiser la dépense passe avant tout le reste.",
+  vie_etudiante: "Sorties, associations, rencontres : l'ambiance sur place compte le plus.",
+  voyage: "Profiter de la destination pour explorer le pays et la région.",
+  carriere_internationale: "Construire un CV et un réseau à dimension internationale.",
+  langue: "Progresser au maximum dans la langue du pays.",
+};
 
 export function Wizard() {
   const [step, setStep] = useState(1);
@@ -105,6 +116,28 @@ export function Wizard() {
         <StepShell
           stepNumber={2}
           totalSteps={TOTAL_STEPS}
+          title="Quel est ton profil principal ?"
+          subtitle="Ce qui compte le plus pour toi dans cette mobilité. Le résultat s'adaptera à ce choix."
+          onBack={back}
+          onNext={next}
+        >
+          {(Object.keys(PROFIL_AXE) as ProfilPrincipal[]).map((p) => (
+            <OptionCard
+              key={p}
+              label={PROFIL_AXE[p].label}
+              description={PROFIL_DESCRIPTIONS[p]}
+              selected={profil.profilPrincipal === p}
+              onClick={() => update("profilPrincipal", p)}
+            />
+          ))}
+        </StepShell>
+      );
+
+    case 3:
+      return (
+        <StepShell
+          stepNumber={3}
+          totalSteps={TOTAL_STEPS}
           title="Combien de temps dure ton séjour ?"
           onBack={back}
           onNext={next}
@@ -122,10 +155,10 @@ export function Wizard() {
         </StepShell>
       );
 
-    case 3:
+    case 4:
       return (
         <StepShell
-          stepNumber={3}
+          stepNumber={4}
           totalSteps={TOTAL_STEPS}
           title="Quel type de logement envisages-tu ?"
           onBack={back}
@@ -142,10 +175,10 @@ export function Wizard() {
         </StepShell>
       );
 
-    case 4:
+    case 5:
       return (
         <StepShell
-          stepNumber={4}
+          stepNumber={5}
           totalSteps={TOTAL_STEPS}
           title="À quelle fréquence penses-tu voyager ?"
           subtitle="Week-ends, excursions dans le pays ou les pays voisins."
@@ -163,10 +196,10 @@ export function Wizard() {
         </StepShell>
       );
 
-    case 5:
+    case 6:
       return (
         <StepShell
-          stepNumber={5}
+          stepNumber={6}
           totalSteps={TOTAL_STEPS}
           title="Comment décrirais-tu ta vie sociale sur place ?"
           subtitle="Sorties, bars, restaurants, activités, soirées..."
@@ -184,10 +217,10 @@ export function Wizard() {
         </StepShell>
       );
 
-    case 6:
+    case 7:
       return (
         <StepShell
-          stepNumber={6}
+          stepNumber={7}
           totalSteps={TOTAL_STEPS}
           title="Quel budget as-tu chaque mois ?"
           subtitle="Argent dont tu disposes régulièrement (famille, job étudiant...), hors bourses et épargne."
@@ -203,10 +236,10 @@ export function Wizard() {
         </StepShell>
       );
 
-    case 7:
+    case 8:
       return (
         <StepShell
-          stepNumber={7}
+          stepNumber={8}
           totalSteps={TOTAL_STEPS}
           title="As-tu des bourses prévues ?"
           subtitle="Sélectionne toutes celles qui s'appliquent, puis indique le montant total attendu."
@@ -235,10 +268,10 @@ export function Wizard() {
         </StepShell>
       );
 
-    case 8:
+    case 9:
       return (
         <StepShell
-          stepNumber={8}
+          stepNumber={9}
           totalSteps={TOTAL_STEPS}
           title="As-tu de l'épargne personnelle mobilisable ?"
           subtitle="Montant que tu peux utiliser pour ce séjour, en plus de ton budget mensuel et de tes bourses."

@@ -8,6 +8,12 @@ import { formatDestinationLabel } from "@/lib/destinations";
 import { formatEuros, formatSigned } from "@/lib/format";
 import { BudgetTierCard } from "./BudgetTierCard";
 import { CompatibiliteList } from "./CompatibiliteList";
+import { CompatibiliteBudgetaireBanner } from "./CompatibiliteBudgetaireBanner";
+import { RisquesCard } from "./RisquesCard";
+import { ProfilFitCard } from "./ProfilFitCard";
+import { HiddenCostsChecklist } from "./HiddenCostsChecklist";
+import { PourquoiCeResultat } from "./PourquoiCeResultat";
+import { RecommandationsList } from "./RecommandationsList";
 
 interface ResultatSimulationProps {
   profil: UserProfile;
@@ -31,6 +37,17 @@ const CONFIANCE_LABEL = {
     classes: "bg-slate-200 text-slate-700",
   },
 } as const;
+
+function SectionTitle({ numero, titre }: { numero: number; titre: string }) {
+  return (
+    <div className="mb-3 flex items-center gap-2">
+      <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white">
+        {numero}
+      </span>
+      <h2 className="text-lg font-semibold text-slate-900">{titre}</h2>
+    </div>
+  );
+}
 
 export function ResultatSimulation({ profil, onRecommencer }: ResultatSimulationProps) {
   const destination = useMemo(
@@ -70,62 +87,79 @@ export function ResultatSimulation({ profil, onRecommencer }: ResultatSimulation
         </span>
       </div>
 
-      <p className="mb-6 text-sm text-slate-500">{confianceInfo.detail} {destination.sourceNote}</p>
+      <p className="mb-8 text-sm text-slate-500">{confianceInfo.detail} {destination.sourceNote}</p>
 
-      {simulation.alertesDepensesSousEstimees.length > 0 ? (
-        <div className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 p-4">
-          <h2 className="mb-2 font-semibold text-amber-800">
-            ⚠️ Dépenses souvent sous-estimées pour cette destination
-          </h2>
-          <ul className="list-inside list-disc space-y-1 text-sm text-amber-800">
-            {simulation.alertesDepensesSousEstimees.map((alerte) => (
-              <li key={alerte}>{alerte}</li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
-
-      <div className="mb-8 grid gap-4 sm:grid-cols-3">
-        <BudgetTierCard tier={simulation.tiers.minimal} />
-        <BudgetTierCard tier={simulation.tiers.confort} highlighted />
-        <BudgetTierCard tier={simulation.tiers.experience} />
-      </div>
-
-      <div className="mb-8 rounded-2xl border border-slate-200 bg-white p-5">
-        <h2 className="mb-4 text-lg font-semibold text-slate-900">Ton budget est-il suffisant ?</h2>
+      {/* 1. Combien cela va coûter */}
+      <section className="mb-10">
+        <SectionTitle numero={1} titre="Combien cela va coûter" />
         <div className="grid gap-4 sm:grid-cols-3">
-          <div>
-            <p className="text-sm text-slate-500">Ressources totales pour le séjour</p>
-            <p className="text-2xl font-bold text-slate-900">{formatEuros(simulation.ressourcesTotales)}</p>
-            <p className="mt-1 text-xs text-slate-400">
-              Budget mensuel × durée + bourses + épargne
-            </p>
-          </div>
-          <div>
-            <p className="text-sm text-slate-500">Budget confort estimé</p>
-            <p className="text-2xl font-bold text-slate-900">{formatEuros(simulation.tiers.confort.total)}</p>
-          </div>
-          <div>
-            <p className="text-sm text-slate-500">Reste à charge (profil confort)</p>
-            <p className={`text-2xl font-bold ${resteConfort > 0 ? "text-red-600" : "text-emerald-600"}`}>
-              {formatSigned(resteConfort)}
-            </p>
-            <p className="mt-1 text-xs text-slate-400">
-              {resteConfort > 0
-                ? "Il te manque ce montant pour couvrir ton profil déclaré."
-                : "Ton budget couvre ton profil déclaré, avec de la marge."}
-            </p>
+          <BudgetTierCard tier={simulation.tiers.minimal} />
+          <BudgetTierCard tier={simulation.tiers.confort} highlighted />
+          <BudgetTierCard tier={simulation.tiers.experience} />
+        </div>
+      </section>
+
+      {/* 2. Puis-je me le permettre */}
+      <section className="mb-10">
+        <SectionTitle numero={2} titre="Puis-je me le permettre" />
+        <div className="space-y-4">
+          <CompatibiliteBudgetaireBanner compatibilite={simulation.compatibiliteBudgetaire} />
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div>
+                <p className="text-sm text-slate-500">Ressources totales pour le séjour</p>
+                <p className="text-2xl font-bold text-slate-900">{formatEuros(simulation.ressourcesTotales)}</p>
+                <p className="mt-1 text-xs text-slate-400">Budget mensuel × durée + bourses + épargne</p>
+              </div>
+              <div>
+                <p className="text-sm text-slate-500">Budget confort estimé</p>
+                <p className="text-2xl font-bold text-slate-900">{formatEuros(simulation.tiers.confort.total)}</p>
+              </div>
+              <div>
+                <p className="text-sm text-slate-500">Reste à charge</p>
+                <p className={`text-2xl font-bold ${resteConfort > 0 ? "text-red-600" : "text-emerald-600"}`}>
+                  {formatSigned(resteConfort)}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+
+      {/* 3. Est-ce une destination adaptée à mon profil */}
+      <section className="mb-10">
+        <SectionTitle numero={3} titre="Est-ce adapté à mon profil" />
+        <ProfilFitCard fit={simulation.fitProfil} />
+      </section>
+
+      {/* 4. Quels sont les principaux risques */}
+      <section className="mb-10">
+        <SectionTitle numero={4} titre="Quels sont les principaux risques" />
+        <RisquesCard destination={destination} />
+      </section>
+
+      {/* 5. Quelles dépenses sont souvent oubliées */}
+      <section className="mb-10">
+        <SectionTitle numero={5} titre="Quelles dépenses sont souvent oubliées" />
+        <HiddenCostsChecklist />
+      </section>
+
+      <div className="mb-10">
+        <PourquoiCeResultat explication={simulation.explication} />
       </div>
 
-      <div className="mb-8">
+      <div className="mb-10">
+        <RecommandationsList recommandations={simulation.recommandations} />
+      </div>
+
+      <div className="mb-10">
         <h2 className="mb-1 text-lg font-semibold text-slate-900">
-          Quelles destinations sont compatibles avec tes moyens ?
+          Quelles destinations sont compatibles avec tes moyens et ton profil ?
         </h2>
         <p className="mb-4 text-sm text-slate-500">
           Classement des 20 destinations du simulateur selon ton profil (durée, type de logement,
-          voyages, vie sociale), du reste à charge le plus favorable au moins favorable.
+          voyages, vie sociale), du reste à charge le plus favorable au moins favorable. La
+          colonne « Profil » indique l&apos;adéquation avec le profil principal que tu as choisi.
         </p>
         <CompatibiliteList items={compatibilite} destinationSelectionneeId={destination.id} />
       </div>

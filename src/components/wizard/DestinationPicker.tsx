@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { Destination } from "@/lib/types";
 import { formatDestinationLabel } from "@/lib/destinations";
+import { StarRating } from "@/components/ui/StarRating";
 
 const NIVEAU_COUT_LABEL = ["", "Très bas", "Bas", "Modéré", "Élevé", "Très élevé"];
 
@@ -62,6 +63,9 @@ export function DestinationPicker({ destinations, selectedId, onSelect }: Destin
                 <div className="flex flex-shrink-0 flex-col items-end gap-1">
                   <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">
                     Coût de vie : {NIVEAU_COUT_LABEL[d.niveauCoutGlobal]}
+                  </span>
+                  <span className="flex items-center gap-1 text-xs text-slate-500">
+                    Logement <StarRating value={d.difficulteLogement} colorClass="text-red-500" />
                   </span>
                   {d.confiance !== "observe" ? (
                     <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">

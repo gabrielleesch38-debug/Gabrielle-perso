@@ -8,5 +8,5 @@ export function getDestinationById(id: string): Destination | undefined {
 }
 
 export function formatDestinationLabel(d: Destination): string {
-  return `${d.ville}, ${d.pays}`;
+  return d.pays;
 }

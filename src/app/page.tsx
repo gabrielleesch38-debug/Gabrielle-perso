@@ -11,7 +11,7 @@ export default function Home() {
           Simulateur budget mobilité
         </p>
         <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-          Combien va vraiment te coûter ton Erasmus ?
+          Combien va vraiment te coûter ta mobilité internationale ?
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-lg text-slate-600">
           Une estimation construite à partir de retours réels d&apos;étudiants partis en

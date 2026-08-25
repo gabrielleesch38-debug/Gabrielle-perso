@@ -33,7 +33,7 @@ export function DestinationPicker({ destinations, selectedId, onSelect }: Destin
         type="text"
         value={filtre}
         onChange={(e) => setFiltre(e.target.value)}
-        placeholder="Rechercher une ville ou un pays..."
+        placeholder="Rechercher une destination ou un pays..."
         className="mb-3 w-full rounded-lg border-2 border-slate-200 px-3 py-2 focus:border-blue-600 focus:outline-none"
       />
       <div className="max-h-96 space-y-2 overflow-y-auto pr-1">

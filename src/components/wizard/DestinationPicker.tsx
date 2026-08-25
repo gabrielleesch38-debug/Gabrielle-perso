@@ -19,12 +19,7 @@ export function DestinationPicker({ destinations, selectedId, onSelect }: Destin
   const filtrees = useMemo(() => {
     const f = filtre.trim().toLowerCase();
     if (!f) return destinations;
-    return destinations.filter(
-      (d) =>
-        d.ville.toLowerCase().includes(f) ||
-        d.pays.toLowerCase().includes(f) ||
-        (d.universite ?? "").toLowerCase().includes(f),
-    );
+    return destinations.filter((d) => d.pays.toLowerCase().includes(f));
   }, [destinations, filtre]);
 
   return (
@@ -56,9 +51,7 @@ export function DestinationPicker({ destinations, selectedId, onSelect }: Destin
                   <span className={`block font-medium ${selected ? "text-blue-800" : "text-slate-800"}`}>
                     {formatDestinationLabel(d)}
                   </span>
-                  {d.universite ? (
-                    <span className="text-sm text-slate-500">{d.universite}</span>
-                  ) : null}
+                  <span className="text-sm text-slate-500">{d.region}</span>
                 </div>
                 <div className="flex flex-shrink-0 flex-col items-end gap-1">
                   <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600">

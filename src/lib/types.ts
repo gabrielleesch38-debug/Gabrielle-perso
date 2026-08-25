@@ -11,9 +11,11 @@ export type Score5 = 1 | 2 | 3 | 4 | 5;
 
 export interface Destination {
   id: string;
+  /** Le pays est l'unité de référence : les accords universitaires et les villes
+   * concernées varient selon l'établissement d'origine de l'étudiant, donc les
+   * chiffres sont volontairement agrégés au niveau pays plutôt que rattachés à
+   * une ville ou une université précise. */
   pays: string;
-  ville: string;
-  universite: string | null;
   region: string;
   /** €/mois */
   logement: CostRange;

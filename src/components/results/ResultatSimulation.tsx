@@ -79,8 +79,7 @@ export function ResultatSimulation({ profil, onRecommencer }: ResultatSimulation
             {formatDestinationLabel(destination)}
           </h1>
           <p className="text-slate-500">
-            {destination.universite ? `${destination.universite} · ` : ""}
-            Séjour de {profil.dureeMois} mois
+            {destination.region} · Séjour de {profil.dureeMois} mois
           </p>
         </div>
         <span className={`h-fit w-fit rounded-full px-3 py-1 text-sm font-medium ${confianceInfo.classes}`}>
